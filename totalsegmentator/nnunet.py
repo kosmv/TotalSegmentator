@@ -275,8 +275,7 @@ def nnUNetv2_predict(dir_in, dir_out, task_id, model="3d_fullres", folds=None,
     # new nnunetv2 feature: keep dir_out empty to return predictions as return value
     predictor.predict_from_files_sequential(dir_in, dir_out,
                                  save_probabilities=save_probabilities, overwrite=not continue_prediction,
-                                 folder_with_segs_from_prev_stage=prev_stage_predictions,
-                                 num_parts=num_parts, part_id=part_id)
+                                 folder_with_segs_from_prev_stage=prev_stage_predictions)
 
     # # Use numpy as input. TODO: In entire pipeline do not save to disk
     # input_image = nib.load(Path(dir_in) / "s01_0000.nii.gz")
