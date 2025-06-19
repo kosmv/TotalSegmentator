@@ -134,6 +134,7 @@ def download_url_and_unpack(url, config_dir):
 
 
 def download_pretrained_weights(task_id):
+    assert False, f"Trying to download {task_id}"
 
     config_dir = get_weights_dir()
     config_dir.mkdir(exist_ok=True, parents=True)

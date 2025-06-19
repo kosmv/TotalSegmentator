@@ -538,11 +538,11 @@ def totalsegmentator(input: Union[str, Path, Nifti1Image], output: Union[str, Pa
     else:
         statistics_fast = False
 
-    if type(task_id) is list:
-        for tid in task_id:
-            download_pretrained_weights(tid)
-    else:
-        download_pretrained_weights(task_id)
+    #if type(task_id) is list:
+    #    for tid in task_id:
+    #        download_pretrained_weights(tid)
+    #else:
+    #    download_pretrained_weights(task_id)
 
     # For MR always run 3mm model for roi_subset, because 6mm too bad results
     #  (runtime for 3mm still very good for MR)
@@ -588,7 +588,7 @@ def totalsegmentator(input: Union[str, Path, Nifti1Image], output: Union[str, Pa
                 crop_spacing = 6.0
         crop_task = "total_mr" if task.endswith("_mr") else "total"
         crop_trainer = "nnUNetTrainer_2000epochs_NoMirroring" if task.endswith("_mr") else "nnUNetTrainer_4000epochs_NoMirroring"
-        download_pretrained_weights(crop_model_task)
+        #download_pretrained_weights(crop_model_task)
         
         organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
                             trainer=crop_trainer, tta=False, multilabel_image=True, resample=crop_spacing,
@@ -610,7 +610,7 @@ def totalsegmentator(input: Union[str, Path, Nifti1Image], output: Union[str, Pa
 
     # Generate rough body segmentation (6mm) (speedup for big images; not useful in combination with --fast option)
     if crop is None and body_seg:
-        download_pretrained_weights(300)
+        #download_pretrained_weights(300)
         st = time.time()
         if not quiet: print("Generating rough body segmentation...")
         body_seg, _, _ = nnUNet_predict_image(input, None, 300, model="3d_fullres", folds=[0],
